@@ -43,7 +43,7 @@ export type ProgressCell = {
 export const Calendar: Component<{
   progressRows: ProgressRow[];
 }> = (props) => (
-	<table>
+	<table class='m-auto text-gray-700'>
 		<tbody>
 			<CalendarHead/>
 			<For each={props.progressRows}>

@@ -2,7 +2,14 @@ import { ProgressCell, ProgressRow } from '../components/calendar/Calendar'
 import { TDateInfo } from './calendar1'
 
 export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, daysToShow: number): ProgressRow[] {
-	let daysShown = 0
+	if (datesInfo.length === 0) {
+		return [
+			{
+				cells: [],
+			},
+		]
+	}
+
 	const rows: ProgressRow[] = [
 		{
 			cells: [],
@@ -34,10 +41,15 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 		++i
 	}
 
+	let daysShown = 0
+	const strDate = getDayCodeByDate(getDateWithOffsetDays(fromDate, daysShown))
 
 	let iData = 0
 	let lastDateInfo = datesInfo[iData++]
-	// TODO: Allow to see only a limited time window
+	while (!!lastDateInfo && !localDatesLTE(strDate, lastDateInfo.date)) {
+		lastDateInfo = datesInfo[iData++]
+	}
+
 	while (daysShown < daysToShow) {
 
 		const strDate = getDayCodeByDate(getDateWithOffsetDays(fromDate, daysShown))
@@ -85,4 +97,12 @@ function displayDateFromLocalDate(localDate: string) {
 		year: 'numeric',
 	})
 	return formatter.format(new Date(localDate))
+}
+
+function localDatesLTE(aLocalDate: string, bLocalDate: string) {
+	return datesLTE(new Date(aLocalDate), new Date(bLocalDate))
+}
+
+function datesLTE(aDate: Date, bDate: Date) {
+	return aDate.getTime() <= bDate.getTime()
 }
