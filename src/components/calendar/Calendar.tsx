@@ -1,7 +1,7 @@
 import { Component, For } from 'solid-js'
 import { Checkbox } from './Checkbox'
 import { TDateInfo } from '../../data/calendar1'
-import { mapDataToProgressRows } from '../../data/utils'
+import { datesInTheSameDay, mapDataToProgressRows, moveDateToWeekStart } from '../../data/utils'
 
 export const Calendar: Component<{
 	startWeekFromDate: Date;
@@ -9,7 +9,14 @@ export const Calendar: Component<{
 	datesInfo: TDateInfo[];
 }> = (props) => {
 
-	const progressRows = mapDataToProgressRows(props.datesInfo, props.startWeekFromDate, props.numWeeks * 7)
+	const fromDateInitial = new Date(props.startWeekFromDate)
+	const fromDateFloor = moveDateToWeekStart(fromDateInitial)
+
+	const numDays =  !datesInTheSameDay(fromDateInitial, fromDateFloor) 
+		? (props.numWeeks + 1) * 7
+		: props.numWeeks * 7
+	
+	const progressRows = mapDataToProgressRows(props.datesInfo, fromDateFloor, numDays)
 
 	return (
 		<CalendarStateless

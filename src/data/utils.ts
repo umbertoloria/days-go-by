@@ -71,16 +71,18 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 		++daysShown
 	}
 
-	const endFillCellsCount = fillingCellsCount - startFillCellsCount
-	i = 0
-	while (i < endFillCellsCount) {
-		addCell({
-			done: false,
-			displayDate: displayDateFromLocalDate(
-				getDayCodeByDate(getDateWithOffsetDays(fromDate, daysToShow + i)),
-			),
-		})
-		++i
+	if (startFillCellsCount > 0) {
+		const endFillCellsCount = fillingCellsCount - startFillCellsCount
+		i = 0
+		while (i < endFillCellsCount) {
+			addCell({
+				done: false,
+				displayDate: displayDateFromLocalDate(
+					getDayCodeByDate(getDateWithOffsetDays(fromDate, daysToShow + i)),
+				),
+			})
+			++i
+		}
 	}
 
 	return rows
@@ -118,4 +120,17 @@ function localDatesLTE(aLocalDate: string, bLocalDate: string) {
 
 function datesLTE(aDate: Date, bDate: Date) {
 	return aDate.getTime() <= bDate.getTime()
+}
+
+export function moveDateToWeekStart(date: Date) {
+	const weekday = date.getDay() // 0 => sunday
+	const numDaysFromMonday = (7 + weekday - 1) % 7
+
+	const clone = new Date(date)
+	clone.setDate(clone.getDate() - numDaysFromMonday)
+	return clone
+}
+
+export function datesInTheSameDay(aDate: Date, bDate: Date) {
+	return getDayCodeByDate(aDate) === getDayCodeByDate(bDate)
 }
