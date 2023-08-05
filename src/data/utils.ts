@@ -1,8 +1,11 @@
-import { ProgressCell, ProgressRow } from '../components/calendar/Calendar'
+import { CalendarCellProps, ProgressRow } from '../components/calendar/Calendar'
 import { TDateInfo } from './calendar1'
 
+
+const fillingCellsCount = 7
 export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, daysToShow: number): ProgressRow[] {
 	if (datesInfo.length === 0) {
+		// Given no dates.
 		return [
 			{
 				cells: [],
@@ -15,13 +18,11 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 			cells: [],
 		},
 	]
-	function addCell(cellToAdd: ProgressCell) {
+	function addCell(cellToAdd: CalendarCellProps) {
 		const lastRow = rows.at(-1)
 		const { cells } = lastRow
-
 		cells.push(cellToAdd)
-
-		if (cells.length === 7) {
+		if (cells.length === fillingCellsCount) {
 			rows.push({
 				cells: [],
 			})
@@ -29,13 +30,13 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 	}
 
 	const fromDateWeekday = fromDate.getDay() // 0 => sunday
-	const fillingCellsCount = (7 + fromDateWeekday - 1) % 7
+	const startFillCellsCount = (fillingCellsCount + fromDateWeekday - 1) % fillingCellsCount
 	let i = 0
-	while (i < fillingCellsCount) {
+	while (i < startFillCellsCount) {
 		addCell({
 			done: false,
 			displayDate: displayDateFromLocalDate(
-				getDayCodeByDate(getDateWithOffsetDays(fromDate, -(fillingCellsCount - i))),
+				getDayCodeByDate(getDateWithOffsetDays(fromDate, -(startFillCellsCount - i))),
 			),
 		})
 		++i
@@ -68,6 +69,18 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 		})
 
 		++daysShown
+	}
+
+	const endFillCellsCount = fillingCellsCount - startFillCellsCount
+	i = 0
+	while (i < endFillCellsCount) {
+		addCell({
+			done: false,
+			displayDate: displayDateFromLocalDate(
+				getDayCodeByDate(getDateWithOffsetDays(fromDate, daysToShow + i)),
+			),
+		})
+		++i
 	}
 
 	return rows

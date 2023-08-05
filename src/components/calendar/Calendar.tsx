@@ -51,11 +51,7 @@ const days = [
 ]
 
 export type ProgressRow = {
-  cells: ProgressCell[]
-}
-export type ProgressCell = {
-  done: boolean
-  displayDate: string;
+  cells: CalendarCellProps[]
 }
 
 const CalendarStateless: Component<{
@@ -96,24 +92,24 @@ const CalendarRow: Component<{
 	<tr>
 		<For each={props.progressRow.cells}>
 			{(cell) => (
-				<CalendarCell cell={cell}/>
+				<CalendarCell {...cell}/>
 			)}
 		</For>
 	</tr>
 )
 
-const CalendarCell: Component<{
-  cell: ProgressCell;
-}> = (props) => (
+export type CalendarCellProps = {
+  done: boolean
+  displayDate: string;
+}
 
-	<td style={{
-		'margin': '0',
-		'padding': '0',
-	}}>
+const CalendarCell: Component<CalendarCellProps> = (props) => (
+
+	<td class="m-0 p-0">
 
 		<Checkbox
-			checked={props.cell.done}
-			displayDate={props.cell.displayDate}
+			checked={props.done}
+			displayDate={props.displayDate}
 		/>
 
 	</td>
