@@ -5,15 +5,17 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "lintfix": "eslint ./src --ext ts,tsx --fix",
+    "lint:fix": "eslint ./src --ext ts,tsx --fix",
     "build": "vite build",
     "serve": "vite preview"
   },
   "license": "MIT",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.46.0",
+    "eslint-plugin-solid": "^0.12.1",
     "postcss": "^8.4.24",
     "solid-devtools": "^0.27.3",
     "tailwindcss": "^3.3.2",
