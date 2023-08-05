@@ -42,20 +42,20 @@ export type ProgressCell = {
 
 export const Calendar: Component<{
   progressRows: ProgressRow[];
-}> = ({ progressRows }) => (<>
+}> = (props) => (
 	<table>
 		<tbody>
 			<CalendarHead/>
-			<For each={progressRows}>
+			<For each={props.progressRows}>
 				{(progressRow) => (
 					<CalendarRow progressRow={progressRow}/>
 				)}
 			</For>
 		</tbody>
 	</table>
-</>)
+)
 
-const CalendarHead: Component = () => (<>
+const CalendarHead: Component = () => (
 	<tr>
 		<For each={days}>
 			{(day) => (
@@ -70,13 +70,13 @@ const CalendarHead: Component = () => (<>
 			)}
 		</For>
 	</tr>
-</>)
+)
 
 const CalendarRow: Component<{
   progressRow: ProgressRow;
-}> = ({ progressRow }) => (
+}> = (props) => (
 	<tr>
-		<For each={progressRow.cells}>
+		<For each={props.progressRow.cells}>
 			{(cell) => (
 				<CalendarCell cell={cell}/>
 			)}
@@ -86,7 +86,7 @@ const CalendarRow: Component<{
 
 const CalendarCell: Component<{
   cell: ProgressCell;
-}> = ({ cell }) => (
+}> = (props) => (
 
 	<td style={{
 		'margin': '0',
@@ -94,8 +94,8 @@ const CalendarCell: Component<{
 	}}>
 
 		<Checkbox
-			checked={cell.done}
-			displayDate={cell.displayDate}
+			checked={props.cell.done}
+			displayDate={props.cell.displayDate}
 		/>
 
 	</td>
