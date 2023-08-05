@@ -1,6 +1,24 @@
 import { Component, For } from 'solid-js'
 import { Checkbox } from './Checkbox'
+import { TDateInfo } from '../../data/calendar1'
+import { mapDataToProgressRows } from '../../data/utils'
 
+export const Calendar: Component<{
+	startWeekFromDate: Date;
+	numWeeks: number;
+	datesInfo: TDateInfo[];
+}> = (props) => {
+
+	const progressRows = mapDataToProgressRows(props.datesInfo, props.startWeekFromDate, props.numWeeks * 7)
+
+	return (
+		<CalendarStateless
+			progressRows={progressRows}
+		/>
+	)
+}
+
+// Utils
 const days = [
 	{
 		name: 'monday',
@@ -40,7 +58,7 @@ export type ProgressCell = {
   displayDate: string;
 }
 
-export const Calendar: Component<{
+const CalendarStateless: Component<{
   progressRows: ProgressRow[];
 }> = (props) => (
 	<table class='m-auto text-gray-700'>
