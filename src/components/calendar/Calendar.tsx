@@ -1,5 +1,5 @@
 import { Component, For } from 'solid-js'
-import { Checkbox } from './Checkbox'
+import { DayStatus } from './DayStatus'
 import { TDateInfo } from '../../data/calendar1'
 import { datesInTheSameDay, mapDataToProgressRows, moveDateToWeekStart } from '../../data/utils'
 
@@ -110,7 +110,7 @@ const CalendarCell: Component<CalendarCellProps> = (props) => (
 
 	<td class="m-0 p-0">
 
-		<Checkbox
+		<DayStatus
 			checked={props.done}
 			tooltip={props.displayDate}
 		/>

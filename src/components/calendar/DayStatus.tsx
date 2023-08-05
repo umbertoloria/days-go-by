@@ -1,6 +1,6 @@
 import { Component } from 'solid-js'
 
-export const Checkbox: Component<{
+export const DayStatus: Component<{
   checked?: boolean
   tooltip?: string;
 }> = (props) => (
