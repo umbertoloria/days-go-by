@@ -25,7 +25,6 @@ export const Calendar: Component<{
 	)
 }
 
-// Utils
 const days = [
 	{
 		name: 'monday',
@@ -80,10 +79,7 @@ const CalendarHead: Component = () => (
 	<tr>
 		<For each={days}>
 			{(day) => (
-				<th style={{
-					'margin': '0',
-					'padding': '0',
-				}}>
+				<th class="m-0 p-0">
 					<span>
 						{day.display}
 					</span>
@@ -116,7 +112,7 @@ const CalendarCell: Component<CalendarCellProps> = (props) => (
 
 		<Checkbox
 			checked={props.done}
-			displayDate={props.displayDate}
+			tooltip={props.displayDate}
 		/>
 
 	</td>
