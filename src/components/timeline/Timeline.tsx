@@ -1,5 +1,5 @@
 import { Component } from 'solid-js'
-import { TDateInfo } from '../../data/calendar1'
+import { TDateInfo } from '../../data/example-calendars'
 import { CalendarCellProps, CalendarStateless } from '../calendar/Calendar'
 import { displayDateFromLocalDate, getDateWithOffsetDays } from '../calendar/utils'
 import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLT } from '../../lib/utils'

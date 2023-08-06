@@ -1,4 +1,4 @@
-import { TDateInfo } from '../../data/calendar1'
+import { TDateInfo } from '../../data/example-calendars'
 import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLTE } from '../../lib/utils'
 import { CalendarCellProps, CalendarLineProps } from './Calendar'
 

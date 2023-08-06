@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js'
-import { calendar1 } from '../data/calendar1'
+import { calendar1, calendar2 } from '../data/example-calendars'
 import { Calendar } from '../components/calendar/Calendar'
 import { Timeline } from '../components/timeline/Timeline'
 import { getDayCodeByDate, getNowDate } from '../lib/utils'
@@ -20,16 +20,32 @@ export default function Home() {
 	return (
 		<section class=" p-8">
 
-			<Calendar
-				startWeekFromDate={fromDate()}
-				numWeeks={numWeeks()}
-				datesInfo={calendar1}
-			/>
-
+			<div class="flex justify-center gap-10">
+				<div>
+					<Calendar
+						startWeekFromDate={fromDate()}
+						numWeeks={numWeeks()}
+						datesInfo={calendar1}
+					/>
+				</div>
+				<div>
+					<Calendar
+						startWeekFromDate={fromDate()}
+						numWeeks={numWeeks()}
+						datesInfo={calendar2}
+					/>
+				</div>
+			</div>
+			
 			<Timeline
 				endDate={endDate()}
 				numDaysBefore={numDaysBefore()}
 				datesInfo={calendar1}
+			/>
+			<Timeline
+				endDate={endDate()}
+				numDaysBefore={numDaysBefore()}
+				datesInfo={calendar2}
 			/>
 
 		</section>
