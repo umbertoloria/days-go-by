@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js'
-import { calendar1, calendar2 } from '../data/example-calendars'
+import { calendar1, calendar2, calendar3 } from '../data/example-calendars'
 import { Calendar } from '../components/calendar/Calendar'
 import { Timeline } from '../components/timeline/Timeline'
 import { getDayCodeByDate, getNowDate } from '../lib/utils'
@@ -35,6 +35,13 @@ export default function Home() {
 						datesInfo={calendar2}
 					/>
 				</div>
+				<div>
+					<Calendar
+						startWeekFromDate={fromDate()}
+						numWeeks={numWeeks()}
+						datesInfo={calendar3}
+					/>
+				</div>
 			</div>
 			
 			<Timeline
@@ -46,6 +53,11 @@ export default function Home() {
 				endDate={endDate()}
 				numDaysBefore={numDaysBefore()}
 				datesInfo={calendar2}
+			/>
+			<Timeline
+				endDate={endDate()}
+				numDaysBefore={numDaysBefore()}
+				datesInfo={calendar3}
 			/>
 
 		</section>
