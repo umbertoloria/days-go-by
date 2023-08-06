@@ -57,7 +57,7 @@ export const Timeline: Component<{
 	}
 	return (
 		<CalendarStateless
-			weeks={[
+			calendarLines={[
 				{
 					cells,
 				},

@@ -1,8 +1,9 @@
 import { TDateInfo } from '../../data/calendar1'
 import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLTE } from '../../data/utils'
-import { CalendarCellProps, CalendarWeekProps } from './Calendar'
+import { CalendarCellProps, CalendarLineProps } from './Calendar'
 
-export function mapDataToWeeks(datesInfo: TDateInfo[], fromDate: Date, daysToShow: number): CalendarWeekProps[] {
+export function mapDataToCalendarLines(datesInfo: TDateInfo[], fromDate: Date, daysToShow: number)
+	: CalendarLineProps[] {
 	if (datesInfo.length === 0) {
 		// Given no dates.
 		return [
@@ -14,17 +15,17 @@ export function mapDataToWeeks(datesInfo: TDateInfo[], fromDate: Date, daysToSho
 
 	const fillingCellsCount =  7 as const
 
-	const weeks: CalendarWeekProps[] = [
+	const result: CalendarLineProps[] = [
 		{
 			cells: [],
 		},
 	]
 	function addCell(cellToAdd: CalendarCellProps) {
-		const lastRow = weeks.at(-1)
+		const lastRow = result.at(-1)
 		const { cells } = lastRow
 		cells.push(cellToAdd)
 		if (cells.length === fillingCellsCount) {
-			weeks.push({
+			result.push({
 				cells: [],
 			})
 		}
@@ -90,7 +91,7 @@ export function mapDataToWeeks(datesInfo: TDateInfo[], fromDate: Date, daysToSho
 		}
 	}
 
-	return weeks
+	return result
 }
 
 export function getDateWithOffsetDays(fromDate: Date, offset: number) {

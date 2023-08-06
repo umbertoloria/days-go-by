@@ -1,8 +1,8 @@
-import { Component, For } from 'solid-js'
+import { Component, For, Show } from 'solid-js'
 import { DayStatus } from './DayStatus'
 import { TDateInfo } from '../../data/calendar1'
 import { datesInTheSameDay } from '../../data/utils'
-import { mapDataToWeeks, moveDateToWeekStart } from './utils'
+import { mapDataToCalendarLines, moveDateToWeekStart } from './utils'
 
 export const Calendar: Component<{
 	startWeekFromDate: Date;
@@ -17,24 +17,28 @@ export const Calendar: Component<{
 		? (props.numWeeks + 1) * 7
 		: props.numWeeks * 7
 	
-	const weeks = mapDataToWeeks(props.datesInfo, fromDateFloor, numDays)
+	const calendarLines = mapDataToCalendarLines(props.datesInfo, fromDateFloor, numDays)
 
 	return (
 		<CalendarStateless
-			weeks={weeks}
+			calendarLines={calendarLines}
+			placeTableHeadWithWeekDays
 		/>
 	)
 }
 
 export const CalendarStateless: Component<{
-  weeks: CalendarWeekProps[];
+  calendarLines: CalendarLineProps[];
+	placeTableHeadWithWeekDays?: boolean;
 }> = (props) => (
 	<table class='m-auto text-gray-700'>
 		<tbody>
-			<CalendarHead/>
-			<For each={props.weeks}>
-				{(week) => (
-					<CalendarWeek {...week}/>
+			<Show when={props.placeTableHeadWithWeekDays}>
+				<CalendarHead/>
+			</Show>
+			<For each={props.calendarLines}>
+				{(calendarLine) => (
+					<CalendarLine {...calendarLine}/>
 				)}
 			</For>
 		</tbody>
@@ -85,10 +89,10 @@ const CalendarHead: Component = () => (
 	</tr>
 )
 
-export type CalendarWeekProps = {
+export type CalendarLineProps = {
   cells: CalendarCellProps[]
 }
-const CalendarWeek: Component<CalendarWeekProps> = (props) => (
+const CalendarLine: Component<CalendarLineProps> = (props) => (
 	<tr>
 		<For each={props.cells}>
 			{(cell) => (
