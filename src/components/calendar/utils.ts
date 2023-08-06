@@ -99,7 +99,7 @@ export function getDateWithOffsetDays(fromDate: Date, offset: number) {
 	return result
 }
 
-function displayDateFromLocalDate(localDate: string) {
+export function displayDateFromLocalDate(localDate: string) {
 	const formatter = new Intl.DateTimeFormat('it', {
 		weekday: 'short',
 		day: 'numeric',

@@ -26,7 +26,7 @@ export const Calendar: Component<{
 	)
 }
 
-const CalendarStateless: Component<{
+export const CalendarStateless: Component<{
   weeks: CalendarWeekProps[];
 }> = (props) => (
 	<table class='m-auto text-gray-700'>

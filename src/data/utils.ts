@@ -12,8 +12,16 @@ export function localDatesLTE(aLocalDate: string, bLocalDate: string) {
 	return datesLTE(new Date(aLocalDate), new Date(bLocalDate))
 }
 
+export function localDatesLT(aLocalDate: string, bLocalDate: string) {
+	return datesLT(new Date(aLocalDate), new Date(bLocalDate))
+}
+
 function datesLTE(aDate: Date, bDate: Date) {
 	return aDate.getTime() <= bDate.getTime()
+}
+
+function datesLT(aDate: Date, bDate: Date) {
+	return aDate.getTime() < bDate.getTime()
 }
 
 export function datesInTheSameDay(aDate: Date, bDate: Date) {

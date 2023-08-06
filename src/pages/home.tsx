@@ -1,6 +1,7 @@
 import { createSignal } from 'solid-js'
 import { calendar1 } from '../data/calendar1'
 import { Calendar } from '../components/calendar/Calendar'
+import { Timeline } from '../components/timeline/Timeline'
 import { getDayCodeByDate, getNowDate } from '../data/utils'
 import { getDateWithOffsetDays } from '../components/calendar/utils'
 
@@ -11,6 +12,8 @@ export default function Home() {
 	const nowLocalDate = getDayCodeByDate(nowDate)
 
 	const [numWeeks] = createSignal(defaultNumWeeks)
+	const [endDate] = createSignal(new Date(nowLocalDate))
+	const [numDaysBefore] = createSignal(14)
 
 	const fromDate = () => getDateWithOffsetDays(new Date(nowLocalDate), -(numWeeks() * 7))
 
@@ -20,6 +23,12 @@ export default function Home() {
 			<Calendar
 				startWeekFromDate={fromDate()}
 				numWeeks={numWeeks()}
+				datesInfo={calendar1}
+			/>
+
+			<Timeline
+				endDate={endDate()}
+				numDaysBefore={numDaysBefore()}
 				datesInfo={calendar1}
 			/>
 
