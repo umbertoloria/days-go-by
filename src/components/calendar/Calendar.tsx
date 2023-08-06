@@ -1,7 +1,7 @@
 import { Component, For } from 'solid-js'
 import { DayStatus } from './DayStatus'
 import { TDateInfo } from '../../data/calendar1'
-import { datesInTheSameDay, mapDataToProgressRows, moveDateToWeekStart } from '../../data/utils'
+import { datesInTheSameDay, mapDataToWeeks, moveDateToWeekStart } from '../../data/utils'
 
 export const Calendar: Component<{
 	startWeekFromDate: Date;
@@ -16,16 +16,31 @@ export const Calendar: Component<{
 		? (props.numWeeks + 1) * 7
 		: props.numWeeks * 7
 	
-	const progressRows = mapDataToProgressRows(props.datesInfo, fromDateFloor, numDays)
+	const weeks = mapDataToWeeks(props.datesInfo, fromDateFloor, numDays)
 
 	return (
 		<CalendarStateless
-			progressRows={progressRows}
+			weeks={weeks}
 		/>
 	)
 }
 
-const days = [
+const CalendarStateless: Component<{
+  weeks: CalendarWeekProps[];
+}> = (props) => (
+	<table class='m-auto text-gray-700'>
+		<tbody>
+			<CalendarHead/>
+			<For each={props.weeks}>
+				{(week) => (
+					<CalendarWeek {...week}/>
+				)}
+			</For>
+		</tbody>
+	</table>
+)
+
+const weekDays = [
 	{
 		name: 'monday',
 		display: 'Lun',
@@ -55,29 +70,9 @@ const days = [
 		display: 'Dom',
 	},
 ]
-
-export type ProgressRow = {
-  cells: CalendarCellProps[]
-}
-
-const CalendarStateless: Component<{
-  progressRows: ProgressRow[];
-}> = (props) => (
-	<table class='m-auto text-gray-700'>
-		<tbody>
-			<CalendarHead/>
-			<For each={props.progressRows}>
-				{(progressRow) => (
-					<CalendarRow progressRow={progressRow}/>
-				)}
-			</For>
-		</tbody>
-	</table>
-)
-
 const CalendarHead: Component = () => (
 	<tr>
-		<For each={days}>
+		<For each={weekDays}>
 			{(day) => (
 				<th class="m-0 p-0">
 					<span>
@@ -89,11 +84,12 @@ const CalendarHead: Component = () => (
 	</tr>
 )
 
-const CalendarRow: Component<{
-  progressRow: ProgressRow;
-}> = (props) => (
+export type CalendarWeekProps = {
+  cells: CalendarCellProps[]
+}
+const CalendarWeek: Component<CalendarWeekProps> = (props) => (
 	<tr>
-		<For each={props.progressRow.cells}>
+		<For each={props.cells}>
 			{(cell) => (
 				<CalendarCell {...cell}/>
 			)}
@@ -106,17 +102,12 @@ export type CalendarCellProps = {
   displayDate: string;
 	isToday: boolean;
 }
-
 const CalendarCell: Component<CalendarCellProps> = (props) => (
-
 	<td class="m-0 p-0">
-
 		<DayStatus
 			checked={props.done}
 			tooltip={props.displayDate}
 			highlightToday={props.isToday}
 		/>
-
 	</td>
-
 )

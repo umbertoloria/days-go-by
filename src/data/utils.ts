@@ -1,9 +1,9 @@
-import { CalendarCellProps, ProgressRow } from '../components/calendar/Calendar'
+import { CalendarCellProps, CalendarWeekProps } from '../components/calendar/Calendar'
 import { TDateInfo } from './calendar1'
 
 
 const fillingCellsCount = 7
-export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, daysToShow: number): ProgressRow[] {
+export function mapDataToWeeks(datesInfo: TDateInfo[], fromDate: Date, daysToShow: number): CalendarWeekProps[] {
 	if (datesInfo.length === 0) {
 		// Given no dates.
 		return [
@@ -13,17 +13,17 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 		]
 	}
 
-	const rows: ProgressRow[] = [
+	const weeks: CalendarWeekProps[] = [
 		{
 			cells: [],
 		},
 	]
 	function addCell(cellToAdd: CalendarCellProps) {
-		const lastRow = rows.at(-1)
+		const lastRow = weeks.at(-1)
 		const { cells } = lastRow
 		cells.push(cellToAdd)
 		if (cells.length === fillingCellsCount) {
-			rows.push({
+			weeks.push({
 				cells: [],
 			})
 		}
@@ -89,7 +89,7 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 		}
 	}
 
-	return rows
+	return weeks
 }
 
 function getDayCodeByDate(date: Date) {
