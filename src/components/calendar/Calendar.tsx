@@ -1,7 +1,8 @@
 import { Component, For } from 'solid-js'
 import { DayStatus } from './DayStatus'
 import { TDateInfo } from '../../data/calendar1'
-import { datesInTheSameDay, mapDataToWeeks, moveDateToWeekStart } from '../../data/utils'
+import { datesInTheSameDay } from '../../data/utils'
+import { mapDataToWeeks, moveDateToWeekStart } from './utils'
 
 export const Calendar: Component<{
 	startWeekFromDate: Date;
