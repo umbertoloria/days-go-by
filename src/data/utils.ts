@@ -29,15 +29,17 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 		}
 	}
 
+	const nowDate = getNowDate()
+
 	const fromDateWeekday = fromDate.getDay() // 0 => sunday
 	const startFillCellsCount = (fillingCellsCount + fromDateWeekday - 1) % fillingCellsCount
 	let i = 0
 	while (i < startFillCellsCount) {
+		const curDate = getDateWithOffsetDays(fromDate, -(startFillCellsCount - i))
 		addCell({
 			done: false,
-			displayDate: displayDateFromLocalDate(
-				getDayCodeByDate(getDateWithOffsetDays(fromDate, -(startFillCellsCount - i))),
-			),
+			displayDate: displayDateFromLocalDate(getDayCodeByDate(curDate)),
+			isToday: datesInTheSameDay(curDate, nowDate),
 		})
 		++i
 	}
@@ -53,7 +55,8 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 
 	while (daysShown < daysToShow) {
 
-		const strDate = getDayCodeByDate(getDateWithOffsetDays(fromDate, daysShown))
+		const curDate = getDateWithOffsetDays(fromDate, daysShown)
+		const strDate = getDayCodeByDate(curDate)
 
 		let done = false
 		if (lastDateInfo) {
@@ -66,6 +69,7 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 		addCell({
 			done,
 			displayDate: displayDateFromLocalDate(strDate),
+			isToday: datesInTheSameDay(curDate, nowDate),
 		})
 
 		++daysShown
@@ -75,11 +79,11 @@ export function mapDataToProgressRows(datesInfo: TDateInfo[], fromDate: Date, da
 		const endFillCellsCount = fillingCellsCount - startFillCellsCount
 		i = 0
 		while (i < endFillCellsCount) {
+			const curDate = getDateWithOffsetDays(fromDate, daysToShow + i)
 			addCell({
 				done: false,
-				displayDate: displayDateFromLocalDate(
-					getDayCodeByDate(getDateWithOffsetDays(fromDate, daysToShow + i)),
-				),
+				displayDate: displayDateFromLocalDate(getDayCodeByDate(curDate)),
+				isToday: datesInTheSameDay(curDate, nowDate),
 			})
 			++i
 		}
@@ -133,4 +137,8 @@ export function moveDateToWeekStart(date: Date) {
 
 export function datesInTheSameDay(aDate: Date, bDate: Date) {
 	return getDayCodeByDate(aDate) === getDayCodeByDate(bDate)
+}
+
+export function getNowDate() {
+	return new Date()
 }

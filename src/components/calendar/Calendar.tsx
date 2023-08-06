@@ -104,6 +104,7 @@ const CalendarRow: Component<{
 export type CalendarCellProps = {
   done: boolean
   displayDate: string;
+	isToday: boolean;
 }
 
 const CalendarCell: Component<CalendarCellProps> = (props) => (
@@ -113,9 +114,9 @@ const CalendarCell: Component<CalendarCellProps> = (props) => (
 		<DayStatus
 			checked={props.done}
 			tooltip={props.displayDate}
+			highlightToday={props.isToday}
 		/>
 
 	</td>
 
 )
-

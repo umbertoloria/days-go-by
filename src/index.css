@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+  .day-status-today {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, .3);
+  }
+
+}
