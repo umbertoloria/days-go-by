@@ -93,7 +93,7 @@ export function mapDataToWeeks(datesInfo: TDateInfo[], fromDate: Date, daysToSho
 	return weeks
 }
 
-function getDateWithOffsetDays(fromDate: Date, offset: number) {
+export function getDateWithOffsetDays(fromDate: Date, offset: number) {
 	const result = new Date(fromDate)
 	result.setDate(result.getDate() + offset)
 	return result
