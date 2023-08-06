@@ -2,7 +2,7 @@ import { createSignal } from 'solid-js'
 import { calendar1 } from '../data/calendar1'
 import { Calendar } from '../components/calendar/Calendar'
 import { Timeline } from '../components/timeline/Timeline'
-import { getDayCodeByDate, getNowDate } from '../data/utils'
+import { getDayCodeByDate, getNowDate } from '../lib/utils'
 import { getDateWithOffsetDays } from '../components/calendar/utils'
 
 const defaultNumWeeks = 4 * 2 // Two months

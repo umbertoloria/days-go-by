@@ -2,7 +2,7 @@ import { Component } from 'solid-js'
 import { TDateInfo } from '../../data/calendar1'
 import { CalendarCellProps, CalendarStateless } from '../calendar/Calendar'
 import { displayDateFromLocalDate, getDateWithOffsetDays } from '../calendar/utils'
-import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLT } from '../../data/utils'
+import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLT } from '../../lib/utils'
 
 export const Timeline: Component<{
 	endDate: Date;

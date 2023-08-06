@@ -1,5 +1,5 @@
 import { TDateInfo } from '../../data/calendar1'
-import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLTE } from '../../data/utils'
+import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLTE } from '../../lib/utils'
 import { CalendarCellProps, CalendarLineProps } from './Calendar'
 
 export function mapDataToCalendarLines(datesInfo: TDateInfo[], fromDate: Date, daysToShow: number)

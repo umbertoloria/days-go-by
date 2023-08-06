@@ -1,7 +1,7 @@
 import { Component, For, Show } from 'solid-js'
 import { DayStatus } from './DayStatus'
 import { TDateInfo } from '../../data/calendar1'
-import { datesInTheSameDay } from '../../data/utils'
+import { datesInTheSameDay } from '../../lib/utils'
 import { mapDataToCalendarLines, moveDateToWeekStart } from './utils'
 
 export const Calendar: Component<{
