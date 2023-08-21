@@ -1,9 +1,13 @@
-import { TDateInfo } from '../../data/example-calendars'
+import { TCalendar } from '../../data/example-calendars'
 import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLTE } from '../../lib/utils'
 import { CalendarCellProps, CalendarLineProps } from './Calendar'
 
-export function mapDataToCalendarLines(datesInfo: TDateInfo[], fromDate: Date, daysToShow: number)
+export function mapDataToCalendarLines(calendar: TCalendar, fromDate: Date, daysToShow: number)
 	: CalendarLineProps[] {
+	const { 
+		color,
+		datesInfo,
+	} = calendar
 	if (datesInfo.length === 0) {
 		// Given no dates.
 		return [
@@ -39,8 +43,9 @@ export function mapDataToCalendarLines(datesInfo: TDateInfo[], fromDate: Date, d
 	while (i < startFillCellsCount) {
 		const curDate = getDateWithOffsetDays(fromDate, -(startFillCellsCount - i))
 		addCell({
-			done: false,
 			displayDate: displayDateFromLocalDate(getDayCodeByDate(curDate)),
+			color,
+			done: false,
 			isToday: datesInTheSameDay(curDate, nowDate),
 		})
 		++i
@@ -69,8 +74,9 @@ export function mapDataToCalendarLines(datesInfo: TDateInfo[], fromDate: Date, d
 		}
 
 		addCell({
-			done,
 			displayDate: displayDateFromLocalDate(strDate),
+			color,
+			done,
 			isToday: datesInTheSameDay(curDate, nowDate),
 		})
 
@@ -83,8 +89,9 @@ export function mapDataToCalendarLines(datesInfo: TDateInfo[], fromDate: Date, d
 		while (i < endFillCellsCount) {
 			const curDate = getDateWithOffsetDays(fromDate, daysToShow + i)
 			addCell({
-				done: false,
 				displayDate: displayDateFromLocalDate(getDayCodeByDate(curDate)),
+				color,
+				done: false,
 				isToday: datesInTheSameDay(curDate, nowDate),
 			})
 			++i

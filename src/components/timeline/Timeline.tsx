@@ -1,17 +1,18 @@
 import { Component } from 'solid-js'
-import { TDateInfo } from '../../data/example-calendars'
+import { TCalendar } from '../../data/example-calendars'
 import { CalendarCellProps, CalendarStateless } from '../calendar/Calendar'
 import { displayDateFromLocalDate, getDateWithOffsetDays } from '../calendar/utils'
 import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLT } from '../../lib/utils'
 
 export const Timeline: Component<{
-	endDate: Date;
-	numDaysBefore: number;
-	datesInfo: TDateInfo[];
+	endDate: Date
+	numDaysBefore: number
+	calendar: TCalendar
 }> = (props) => {
 	let iDatesInfo = 0
 
 	const nowDate = getNowDate()
+	const { color } = props.calendar
 
 	const cells: CalendarCellProps[] = []
 	let iCell = props.numDaysBefore
@@ -21,17 +22,18 @@ export const Timeline: Component<{
 
 		const isToday = datesInTheSameDay(curDate, nowDate)
 
-		while (iDatesInfo < props.datesInfo.length && localDatesLT(props.datesInfo[iDatesInfo].date, localDate)) {
+		while (iDatesInfo < props.calendar.datesInfo.length && localDatesLT(props.calendar.datesInfo[iDatesInfo].date, localDate)) {
 			++iDatesInfo
 		}
 
-		if (iDatesInfo < props.datesInfo.length) {
+		if (iDatesInfo < props.calendar.datesInfo.length) {
 			
-			const dateInfo = props.datesInfo[iDatesInfo]
+			const dateInfo = props.calendar.datesInfo[iDatesInfo]
 
 			if (dateInfo.date === localDate) {
 				cells.push({
 					displayDate: displayDateFromLocalDate(localDate),
+					color,
 					done: true,
 					isToday,
 				})
@@ -39,6 +41,7 @@ export const Timeline: Component<{
 	
 				cells.push({
 					displayDate: displayDateFromLocalDate(localDate),
+					color,
 					done: false,
 					isToday,
 				})
@@ -49,6 +52,7 @@ export const Timeline: Component<{
 
 			cells.push({
 				displayDate: displayDateFromLocalDate(localDate),
+				color,
 				done: false,
 				isToday,
 			})

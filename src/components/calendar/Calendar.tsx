@@ -1,13 +1,13 @@
 import { Component, For, Show } from 'solid-js'
 import { DayStatus } from './DayStatus'
-import { TDateInfo } from '../../data/example-calendars'
+import { TCalendar } from '../../data/example-calendars'
 import { datesInTheSameDay } from '../../lib/utils'
 import { mapDataToCalendarLines, moveDateToWeekStart } from './utils'
 
 export const Calendar: Component<{
-	startWeekFromDate: Date;
-	numWeeks: number;
-	datesInfo: TDateInfo[];
+	startWeekFromDate: Date
+	numWeeks: number
+	calendar: TCalendar
 }> = (props) => {
 
 	const fromDateInitial = new Date(props.startWeekFromDate)
@@ -17,7 +17,7 @@ export const Calendar: Component<{
 		? (props.numWeeks + 1) * 7
 		: props.numWeeks * 7
 	
-	const calendarLines = mapDataToCalendarLines(props.datesInfo, fromDateFloor, numDays)
+	const calendarLines = mapDataToCalendarLines(props.calendar, fromDateFloor, numDays)
 
 	return (
 		<CalendarStateless
@@ -28,8 +28,8 @@ export const Calendar: Component<{
 }
 
 export const CalendarStateless: Component<{
-  calendarLines: CalendarLineProps[];
-	placeTableHeadWithWeekDays?: boolean;
+  calendarLines: CalendarLineProps[]
+	placeTableHeadWithWeekDays?: boolean
 }> = (props) => (
 	<table class='m-auto text-gray-700'>
 		<tbody>
@@ -103,14 +103,16 @@ const CalendarLine: Component<CalendarLineProps> = (props) => (
 )
 
 export type CalendarCellProps = {
+  displayDate: string
+	color: string
   done: boolean
-  displayDate: string;
-	isToday: boolean;
+	isToday: boolean
 }
 const CalendarCell: Component<CalendarCellProps> = (props) => (
 	<td class="m-0 p-0">
 		<DayStatus
 			checked={props.done}
+			color={props.color}
 			tooltip={props.displayDate}
 			highlightToday={props.isToday}
 		/>

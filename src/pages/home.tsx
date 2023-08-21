@@ -25,21 +25,21 @@ export default function Home() {
 					<Calendar
 						startWeekFromDate={fromDate()}
 						numWeeks={numWeeks()}
-						datesInfo={calendar1}
+						calendar={calendar1}
 					/>
 				</div>
 				<div>
 					<Calendar
 						startWeekFromDate={fromDate()}
 						numWeeks={numWeeks()}
-						datesInfo={calendar2}
+						calendar={calendar2}
 					/>
 				</div>
 				<div>
 					<Calendar
 						startWeekFromDate={fromDate()}
 						numWeeks={numWeeks()}
-						datesInfo={calendar3}
+						calendar={calendar3}
 					/>
 				</div>
 			</div>
@@ -47,17 +47,17 @@ export default function Home() {
 			<Timeline
 				endDate={endDate()}
 				numDaysBefore={numDaysBefore()}
-				datesInfo={calendar1}
+				calendar={calendar1}
 			/>
 			<Timeline
 				endDate={endDate()}
 				numDaysBefore={numDaysBefore()}
-				datesInfo={calendar2}
+				calendar={calendar2}
 			/>
 			<Timeline
 				endDate={endDate()}
 				numDaysBefore={numDaysBefore()}
-				datesInfo={calendar3}
+				calendar={calendar3}
 			/>
 
 		</section>
