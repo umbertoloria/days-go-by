@@ -1,6 +1,6 @@
 import { Component, For, Show } from 'solid-js'
 import { DayStatus } from './DayStatus'
-import { TCalendar } from '../../data/example-calendars'
+import { TCalendar } from '../../remote/sdk/types'
 import { datesInTheSameDay } from '../../lib/utils'
 import { mapDataToCalendarLines, moveDateToWeekStart } from './utils'
 

@@ -1,4 +1,4 @@
-import { TCalendar } from '../../data/example-calendars'
+import { TCalendar } from '../../remote/sdk/types'
 import { datesInTheSameDay, getDayCodeByDate, getNowDate, localDatesLTE } from '../../lib/utils'
 import { CalendarCellProps, CalendarLineProps } from './Calendar'
 
