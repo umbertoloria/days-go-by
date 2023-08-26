@@ -17,6 +17,11 @@ const App: Component = () => {
 						</Link>
 					</li>
 					<li class="py-2 px-4">
+						<Link href="/login" class="no-underline hover:underline">
+              Login
+						</Link>
+					</li>
+					<li class="py-2 px-4">
 						<Link href="/about" class="no-underline hover:underline">
               About
 						</Link>
