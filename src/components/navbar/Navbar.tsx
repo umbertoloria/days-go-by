@@ -1,29 +1,50 @@
 import { Link, useLocation } from '@solidjs/router'
+import { Show } from 'solid-js'
+import { useUser } from '../../auth/user-data'
+import { backendLogoutAction } from '../../remote/remote'
 
 export const Navbar = () => {
 	const location = useLocation()
+	const { user } = useUser()
 
 	return (
 		<nav class="bg-gray-200 text-gray-900 px-4">
 			<ul class="flex items-center">
 				<li class="py-2 px-4">
 					<Link href="/" class="no-underline hover:underline">
-              Home
+						Home
 					</Link>
 				</li>
-				<li class="py-2 px-4">
-					<Link href="/login" class="no-underline hover:underline">
-              Login
-					</Link>
-				</li>
+				<Show
+					when={!!user()}
+					fallback={
+						<li class="py-2 px-4">
+							{/* Consider "isLoading" to disable click */}
+							<Link href="/login" class="no-underline hover:underline">
+								Login
+							</Link>
+						</li>
+					}>
+					<li class="py-2 px-4">
+						<Link href="/account" class="no-underline hover:underline">
+							{user().email}
+						</Link>
+					</li>
+					<li class="py-2 px-4">
+						<Link href={backendLogoutAction} class="no-underline hover:underline">
+							Logout
+						</Link>
+					</li>
+				</Show>
+				
 				<li class="py-2 px-4">
 					<Link href="/about" class="no-underline hover:underline">
-              About
+						About
 					</Link>
 				</li>
 				<li class="py-2 px-4">
 					<Link href="/error" class="no-underline hover:underline">
-              Error
+						Error
 					</Link>
 				</li>
 

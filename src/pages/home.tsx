@@ -1,9 +1,10 @@
 import { Show, createResource, createSignal, onCleanup } from 'solid-js'
-import { Timeline } from '../components/timeline/Timeline'
-import { readCalendar } from '../remote/remote'
 import { Calendar } from '../components/calendar/Calendar'
-import { getDayCodeByDate, getNowDate } from '../lib/utils'
 import { getDateWithOffsetDays } from '../components/calendar/utils'
+import { Timeline } from '../components/timeline/Timeline'
+import { UserLayout } from '../layout/UserLayout'
+import { getDayCodeByDate, getNowDate } from '../lib/utils'
+import { readCalendar } from '../remote/remote'
 
 const defaultNumWeeks = 4 * 2 // Two months
 const periodRefreshCalendarsInMillis = 10 * 60 * 60 * 1000 // 10 minutes.
@@ -31,66 +32,68 @@ export default function Home() {
 	onCleanup(() => clearInterval(refreshCalendarIntervalTimer))
 
 	return (
-		<section class=" p-8">
+		<UserLayout>
+			<section class=" p-8">
 
-			<div class="flex justify-center gap-10">
+				<div class="flex justify-center gap-10">
+
+					<Show when={!dataCalendar1.loading} fallback={<>Searching...</>}>
+						<div>
+							<Calendar
+								startWeekFromDate={fromDate()}
+								numWeeks={numWeeks()}
+								calendar={dataCalendar1()}
+							/>
+						</div>
+					</Show>
+
+					<Show when={!dataCalendar2.loading} fallback={<>Searching...</>}>
+						<div>
+							<Calendar
+								startWeekFromDate={fromDate()}
+								numWeeks={numWeeks()}
+								calendar={dataCalendar2()}
+							/>
+						</div>
+					</Show>
+
+					<Show when={!dataCalendar3.loading} fallback={<>Searching...</>}>
+						<div>
+							<Calendar
+								startWeekFromDate={fromDate()}
+								numWeeks={numWeeks()}
+								calendar={dataCalendar3()}
+							/>
+						</div>
+					</Show>
+
+				</div>
 
 				<Show when={!dataCalendar1.loading} fallback={<>Searching...</>}>
-					<div>
-						<Calendar
-							startWeekFromDate={fromDate()}
-							numWeeks={numWeeks()}
-							calendar={dataCalendar1()}
-						/>
-					</div>
+					<Timeline
+						endDate={endDate()}
+						numDaysBefore={numDaysBefore()}
+						calendar={dataCalendar1()}
+					/>
 				</Show>
 
 				<Show when={!dataCalendar2.loading} fallback={<>Searching...</>}>
-					<div>
-						<Calendar
-							startWeekFromDate={fromDate()}
-							numWeeks={numWeeks()}
-							calendar={dataCalendar2()}
-						/>
-					</div>
+					<Timeline
+						endDate={endDate()}
+						numDaysBefore={numDaysBefore()}
+						calendar={dataCalendar2()}
+					/>
 				</Show>
 
 				<Show when={!dataCalendar3.loading} fallback={<>Searching...</>}>
-					<div>
-						<Calendar
-							startWeekFromDate={fromDate()}
-							numWeeks={numWeeks()}
-							calendar={dataCalendar3()}
-						/>
-					</div>
+					<Timeline
+						endDate={endDate()}
+						numDaysBefore={numDaysBefore()}
+						calendar={dataCalendar3()}
+					/>
 				</Show>
 
-			</div>
-
-			<Show when={!dataCalendar1.loading} fallback={<>Searching...</>}>
-				<Timeline
-					endDate={endDate()}
-					numDaysBefore={numDaysBefore()}
-					calendar={dataCalendar1()}
-				/>
-			</Show>
-
-			<Show when={!dataCalendar2.loading} fallback={<>Searching...</>}>
-				<Timeline
-					endDate={endDate()}
-					numDaysBefore={numDaysBefore()}
-					calendar={dataCalendar2()}
-				/>
-			</Show>
-
-			<Show when={!dataCalendar3.loading} fallback={<>Searching...</>}>
-				<Timeline
-					endDate={endDate()}
-					numDaysBefore={numDaysBefore()}
-					calendar={dataCalendar3()}
-				/>
-			</Show>
-
-		</section>
+			</section>
+		</UserLayout>
 	)
 }
