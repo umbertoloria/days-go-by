@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { TAuthStatus, TCalendar } from './sdk/types'
 
-const backendURL = 'http://localhost:8000'
+const backendURL = import.meta.env.VITE_BACKEND_ENDPOINT
 
 const api = axios.create({
 	baseURL: backendURL,
